@@ -1,37 +1,52 @@
 package de.brachwitz.leon.tag01;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class ExpenseSupportErrorInvestigator
 {
-    public Integer investigateError(Integer expectedSum, List<String> input)
+    public Integer solvePart1(Integer expectedSum, List<Integer> numbers)
     {
-        var values = findEntryWithSum(expectedSum, input);
-        return values.stream().reduce(1, (a, b) -> a * b);
+        var values = findEntryWithSum(expectedSum, numbers);
+        return values
+                .values()
+                .stream()
+                .reduce(1, (a, b) -> a * b);
     }
 
-    private List<Integer> findEntryWithSum(Integer expectetdSum, List<String> input)
+    public Integer solvePart2(Integer expectedSum, List<Integer> numbers)
     {
-        var result = new ArrayList<Integer>();
-        var convertedInput = convertInput(input);
-        for (int i = 0; i < input.size(); i++)
+        var result = 0;
+        for (Integer value : numbers)
         {
-            for (int j = 0; j < input.size() - 1; j++)
+            final var tmpValues = findEntryWithSum(expectedSum - value, numbers);
+            if (!tmpValues.isEmpty())
             {
-                var sum = convertedInput.get(i) + convertedInput.get(j);
-                if (sum == expectetdSum)
-                {
-                    result.add(convertedInput.get(i));
-                }
+                result = tmpValues
+                        .values()
+                        .stream()
+                        .reduce(1, (x, y) -> x * y) * value;
             }
         }
         return result;
     }
 
-    private List<Integer> convertInput(List<String> input)
+    private Map<Integer, Integer> findEntryWithSum(Integer expectetdSum, List<Integer> numbers)
     {
-        return input.stream().map(s -> Integer.valueOf(s)).collect(Collectors.toList());
+        Map<Integer, Integer> result = new HashMap<>();
+
+        for (int i = 0; i < numbers.size(); i++)
+        {
+            for (int j = 0; j < numbers.size() - 1; j++)
+            {
+                var sum = numbers.get(i) + numbers.get(j);
+                if (sum == expectetdSum)
+                {
+                    result.put(i, numbers.get(i));
+                }
+            }
+        }
+        return result;
     }
 }
