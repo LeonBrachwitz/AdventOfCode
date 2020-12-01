@@ -7,9 +7,9 @@ public class Main
     public static void main(String[] args)
     {
         var fileReader = new FileReader();
-        final var dateninput = fileReader.readCsvFile("/tag01/input.csv");
+        final var dataInput = fileReader.readCsvFile("/tag01/input.csv");
 
         var expenseSupportErrorInvestigator = new ExpenseSupportErrorInvestigator();
-        System.out.println(expenseSupportErrorInvestigator.investigateError(2020, dateninput));
+        System.out.println(expenseSupportErrorInvestigator.investigateError(2020, dataInput));
     }
 }
