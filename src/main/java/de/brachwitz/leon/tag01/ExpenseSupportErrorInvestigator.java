@@ -27,6 +27,7 @@ public class ExpenseSupportErrorInvestigator
                         .values()
                         .stream()
                         .reduce(1, (x, y) -> x * y) * value;
+                break;
             }
         }
         return result;
