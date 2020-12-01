@@ -1,0 +1,14 @@
+.idea
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.ear
+.gradle
+build
+bin
+Test.db
+*.log
+.classpath
+.project
+.settings
